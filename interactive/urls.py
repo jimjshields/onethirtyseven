@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from blog import views
+from interactive import views
 
 urlpatterns = patterns('',
     # Examples:
