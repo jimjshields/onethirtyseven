@@ -1,0 +1,21 @@
+{% extends "interactive/base_template.html" %}
+
+{% block content %}
+
+<script>
+
+	$(".active").removeClass("active")
+	$("#home").addClass("active")
+
+</script>
+
+  <div class="container">
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading"><a href="/interactive/movie_page">Daily Box Office by Movie</a></h4>
+        <p>Search for any movie, get a cool graph.</p>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

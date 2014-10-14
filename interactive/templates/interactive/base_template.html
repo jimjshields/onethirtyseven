@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    {% load staticfiles %}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}1.37:1{% endblock title %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static "interactive/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "interactive/css/blog.css" %}" rel="stylesheet">
+
+    <script src="{% static "interactive/d3.min.js" %}"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <style>
+
+      .media-object.small {
+        height: 64px;
+        width: 64px;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="blog-masthead navbar-fixed-top">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item blog-nav-brand">1.37:1</a>
+          <a class="blog-nav-item active" href="/interactive/" id="home">Home</a>
+          <a class="blog-nav-item" href="#" id="blog">Blog</a>
+          <a class="blog-nav-item" href="/interactive/movie_page" id="interactive">Interactive</a>
+          <a class="blog-nav-item" href="#" id="about">About</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container">
+
+    {% block header %}
+
+      <div class="blog-header">
+        <h1 class="blog-title">1.37:1</h1>
+        <p class="lead blog-description">A data-driven look at film.</p>
+      </div>
+
+    {% endblock header %}
+
+    </div>
+
+    <div class="container" id="content">
+
+    {% block content %} {% endblock content %}
+
+    </div>
+
+    <div class="blog-footer">
+      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </div>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "interactive/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "interactive/test.js" %}"></script>
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>    
+
+  </body>
+</html>

@@ -1,0 +1,59 @@
+{% extends "interactive/base_template.html" %}
+
+{% block header %}
+{% load staticfiles %}
+
+<script>
+
+  $(".active").removeClass("active");
+  $("#interactive").addClass("active");
+
+</script>
+<script>
+
+  var js_data = {{ js_data|safe }};
+  var movie_name = "{{ movie }}";
+
+</script>
+
+<link href="{% static "interactive/movie_page.css" %}" rel="stylesheet">
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+<div class="blog-header">
+  <!-- <h1 class="blog-title">Some cool visualization</h1> -->
+  <br>
+  <p class="lead blog-description">A bar graph of the daily box office gross of a single movie. Type in any movie (since 1999) to give it a try.</p>
+</div>
+
+{% endblock header %}
+
+{% block content %}
+
+  <div class="container">
+    <form action="/interactive/movie_page/" method="post" id="movie_form">
+      {% csrf_token %}
+      <div class="form-group">
+        <!-- <label for="movie">Select Movie: </label> -->
+        <input class="form-control input-lg" id="movie" type="text" name="movie" value="{{ current_movie }}" placeholder="Enter a movie">
+      </div>
+      <input type="submit" value="Try it out" id="movie_submit" class="btn btn-default">
+    </form> 
+  </div>
+  <hr>
+  <br>
+
+  <div class="container">
+  <h3 class="text-center">Daily Gross - <a href="http://www.the-numbers.com/movie/{{ movie_tag }}#tab=box-office">{{ movie }}</a></h3>
+  </div>
+
+  <div class="container" id="daily_graph">
+    <div id="tooltip" class="hidden">
+      <p><strong></strong></p>
+      <p><span id="value">100</span></p>
+    </div>
+  </div>
+  <!-- <div class="container" id="cumulative_graph"></div> -->
+
+<script src="{% static "interactive/movie_page.js" %}"></script>
+
+{% endblock content %}
