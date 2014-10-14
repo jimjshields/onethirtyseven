@@ -6,7 +6,7 @@ import json
 
 def movieFilter(movie):
 
-    filename = '/Users/jimshields/Documents/Blog/137to1/Data/Box Office/dailyBoxOfficeData_full.csv'
+    filename = '/interactive/static/interactive/dailyBoxOfficeData_full.csv'
 
     ofile  = open(filename, 'rU')
     reader = csv.reader(ofile)
@@ -34,7 +34,7 @@ def movieFilter(movie):
 
 def movieFilter2(movie):
 
-    filename = '/Users/jimshields/Documents/Blog/137to1/Data/Box Office/dailyBoxOfficeData_full.csv'
+    filename = '/interactive/static/interactive/dailyBoxOfficeData_full.csv'
 
     ofile  = open(filename, 'rU')
     reader = csv.reader(ofile)
