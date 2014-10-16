@@ -34,7 +34,7 @@ def movieFilter(movie):
 
 def movieFilter2(movie):
 
-    filename = '/Users/jimshields/Documents/Blog/onethirtyseven/interactive/static/interactive/dailyBoxOfficeData_full.csv' # interactive/static/interactive/dailyBoxOfficeData_full.csv'
+    filename = 'interactive/static/interactive/dailyBoxOfficeData_full.csv' # /Users/jimshields/Documents/Blog/onethirtyseven/interactive/static/interactive/dailyBoxOfficeData_full.csv
 
     ofile  = open(filename, 'rU')
     reader = csv.reader(ofile)
