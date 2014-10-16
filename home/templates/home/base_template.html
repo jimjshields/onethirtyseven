@@ -7,71 +7,88 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
     <title>{% block title %}1.37:1{% endblock title %}</title>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap core CSS -->
     <link href="{% static "interactive/css/bootstrap.min.css" %}" rel="stylesheet">
-    <link href="{% static "interactive/css/blog.css" %}" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href="{% static "interactive/css/cover.css" %}" rel="stylesheet">
+
+    <!--d3 source code-->
     <script src="{% static "interactive/d3.min.js" %}"></script>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
     <style>
-
-      .media-object.small {
-        height: 64px;
-        width: 64px;
+      body, html { min-height: 100%; }
+      body {
+        color: white;
+        background: url("{% static "interactive/movie_theater_1_edit.jpg" %}") center no-repeat; /*'https://farm7.staticflickr.com/6076/6086868500_435dd63edb_o.jpg'*/
+        background-size: cover; background-color: #444;
       }
-
+      h1 {
+        text-shadow: 3px 3px 3px black;
+        color: white;
+      }
     </style>
 
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
 
   <body>
+    
 
-    <div class="blog-masthead navbar-fixed-top">
-      <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item blog-nav-brand">1.37:1</a>
-          <a class="blog-nav-item active" href="/" id="home">Home</a>
-          <a class="blog-nav-item" href="/interactive/" id="interactive">Interactive</a>
-          <a class="blog-nav-item" href="/about/" id="about">About</a>
-          <a class="blog-nav-item" href="http://137to1.blogspot.com/" id="blog">Blog</a>
-        </nav>
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">1.37:1</h3>
+              <ul class="nav masthead-nav">
+                <li class="active" id="home"><a href="/">Home</a></li>
+                <li id="interactive"><a href="/interactive/">Interactive</a></li>
+                <li id="about"><a href="/about/">About</a></li>
+                <li id="blog"><a href="http://137to1.blogspot.com/">Blog</a></li>
+              </ul>
+            </div>
+          </div>
+
+          {% block header %}{% endblock header %}
+
+          {% block content %}{% endblock content %}
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+            </div>
+          </div>
+
+        </div>
+
       </div>
-    </div>
-
-    <div class="container">
-
-    {% block header %}
-
-      <div class="blog-header">
-        <h1 class="blog-title">1.37:1</h1>
-        <p class="lead blog-description">A data-driven look at film.</p>
-      </div>
-
-    {% endblock header %}
 
     </div>
 
-    <div class="container" id="content">
-
-    {% block content %} {% endblock content %}
-
-    </div>
-
-    <div class="blog-footer">
-      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-      <p>
-        <a href="#">Back to top</a>
-      </p>
-    </div>
-
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
     <script src="{% static "interactive/js/bootstrap.min.js" %}"></script>
-    <script src="{% static "interactive/test.js" %}"></script>
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>    
-
+    <script src="{% static "interactive/js/docs.min.js" %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

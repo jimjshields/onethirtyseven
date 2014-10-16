@@ -1,21 +1,19 @@
 {% extends "home/base_template.html" %}
 
-{% block content %}
+{% block header %}
+
+{% load staticfiles %}
 
 <script>
 
 	$(".active").removeClass("active")
-	$("#home").addClass("active")
+	$("#interactive").addClass("active")
 
 </script>
 
-  <div class="container">
-    <div class="media">
-      <div class="media-body">
-        <h4 class="media-heading"><a href="/interactive/movie_page">Daily Box Office by Movie</a></h4>
-        <p>Search for any movie, get a cool graph.</p>
-      </div>
-    </div>
+  <div class="inner cover">
+        <h1 class="cover-heading"><a href="/interactive/movie_page">Single Movie Box Office</a></h1>
+        <h1 class="cover-heading"><a href="/interactive/multiple_movie_page">Multiple Movie Box Office</a></h1>
   </div>
 
-{% endblock content %}
+{% endblock header %}

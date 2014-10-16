@@ -34,7 +34,7 @@ def movieFilter(movie):
 
 def movieFilter2(movie):
 
-    filename = 'interactive/static/interactive/dailyBoxOfficeData_full.csv'
+    filename = '/Users/jimshields/Documents/Blog/onethirtyseven/interactive/static/interactive/dailyBoxOfficeData_full.csv' # interactive/static/interactive/dailyBoxOfficeData_full.csv'
 
     ofile  = open(filename, 'rU')
     reader = csv.reader(ofile)
@@ -60,7 +60,7 @@ def movieFilter2(movie):
 
     ofile.close()
 
-    print movieList
+    # print movieList
 
     interm_data = []
 
@@ -75,3 +75,12 @@ def movieFilter2(movie):
     json_data += ']'
 
     return json_data, movie_tag
+
+def multipleMovieFilter(movies):
+    json_data = '['
+    movie_tags = []
+    for i in movies:
+        json_data += movieFilter2(i)[0].replace('[', '').replace(']', '')
+        movie_tags.append(movieFilter2(i)[1])
+    json_data += ']'
+    return json_data, movie_tags

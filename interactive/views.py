@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader, Context
 from django.shortcuts import render, render_to_response
-from forms import MovieForm
-from movieFilter import movieFilter2
+from forms import MovieForm, MoviesForm
+from movieFilter import movieFilter2, multipleMovieFilter
 
 # Create your views here.
 
@@ -19,6 +19,17 @@ def movie_page(request):
 	else:
 		form = MovieForm()
 	return render(request, 'interactive/movie_page.html', {'form': form})
+
+def multiple_movie_page(request):
+	if request.method == 'POST':
+		form = MoviesForm(request.POST)
+		if form.is_valid():
+			data = form.cleaned_data
+			chart_data = multipleMovieFilter([data['movie1'], data['movie2']])
+			return render(request, 'interactive/multiple_movie_page.html', {'js_data': chart_data[0], 'movie_tags': chart_data[1], 'movies': [data['movie1'], data['movie2']]})
+	else:
+		form = MoviesForm()
+	return render(request, 'interactive/multiple_movie_page.html', {'form': form})
 
 def base_template(request):
 	return render_to_response('interactive/base_template.html')

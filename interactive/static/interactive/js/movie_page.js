@@ -3,8 +3,8 @@ var dollar = d3.format("$,");
 var formatDate = d3.time.format("%m/%d/%y")
 
 var margin = {top: 10, right: 20, bottom: 30, left: 70},
-  width = 860 - margin.left - margin.right,
-  height = 400 - margin.top - margin.bottom,
+  width = 700 - margin.left - margin.right, // adjusted width (from 860) to fit new page formatting
+  height = 300 - margin.top - margin.bottom, // adjusted height (from 400) to fit new page formatting
   barPadding = 0.5;
 
 var x = d3.time.scale()
@@ -27,6 +27,7 @@ var yAxis = d3.svg.axis()
 var svg = d3.select("#daily_graph").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .style("opacity", 0.9)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -45,10 +46,12 @@ y.domain([0, d3.max(dataset, function(d) { return d.gross; })]);
 svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
+    .style("opacity", 1)
     .call(xAxis);
 
 svg.append("g")
     .attr("class", "y axis")
+    .style("opacity", 1)
     .call(yAxis);
 
 svg.selectAll(".bar")
@@ -59,6 +62,7 @@ svg.selectAll(".bar")
     .attr("width", (width / d3.max(dataset, function(d) { return d.days })) - barPadding)
     .attr("y", function(d) { return y(d.gross); })
     .attr("height", function(d) { return height - y(d.gross); })
+    .style("opacity", 1)
     .on("mousemove", function (d) {
         d3.select("#tooltip")
             .style("left", d3.event.pageX + "px")

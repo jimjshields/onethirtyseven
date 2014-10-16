@@ -3,6 +3,12 @@
 {% block header %}
 {% load staticfiles %}
 
+  <style>
+    h3 > a {
+      color: steelblue;
+    }
+  </style>
+
   <script>
 
     $(".active").removeClass("active");
@@ -12,21 +18,27 @@
   <script>
 
     var js_data = {{ js_data|safe }};
-    var movie_name = "{{ movie }}";
+    var movie_name = "{{ movies }}";
+    var movie_1 = "{{ movies.0 }}";
+    var movie_2 = "{{ movies.1 }}";
 
   </script>
 
-  <link href="{% static "interactive/css/movie_page.css" %}" rel="stylesheet">
+  <link href="{% static "interactive/css/multiple_movie_page.css" %}" rel="stylesheet">
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
 {% endblock header %}
 
 {% block content %}
 
-{% if movie %}
+{% if movies %}
 
   <div id="daily_graph_title">
-  <h3 class="text-center">Daily Gross - <a href="http://www.the-numbers.com/movie/{{ movie_tag }}#tab=box-office">{{ movie }}</a></h3>
+  <h3 class="text-center">
+    Daily Gross - 
+      <a href="http://www.the-numbers.com/movie/{{ movie_tags.0 }}#tab=box-office">{{ movies.0 }}</a> vs.
+      <a href="http://www.the-numbers.com/movie/{{ movie_tags.1 }}#tab=box-office">{{ movies.1 }}</a>
+  </h3>
   </div>
 
   <div id="daily_graph"></div>
@@ -48,16 +60,18 @@
   </div> -->
 
   <div id="daily_form">
-    <form action="/interactive/movie_page/" method="post" id="movie_form">
+    <form action="/interactive/multiple_movie_page/" method="post" id="movie_form">
       {% csrf_token %}
       <div class="form-group">
-        <input class="form-control input-lg" id="movie" type="text" name="movie" value="{{ current_movie }}" placeholder="Enter a movie">
+        <input class="form-control input-lg" id="movie1" type="text" name="movie1" value="{{ current_movie_1 }}" placeholder="First movie">
+        <br>
+        <input class="form-control input-lg" id="movie2" type="text" name="movie2" value="{{ current_movie_2 }}" placeholder="Second movie">
       </div>
       <input type="submit" value="Try it out" id="movie_submit" class="btn btn-default">
     </form> 
   </div>
   <!-- <div class="container" id="cumulative_graph"></div> -->
 
-<script src="{% static "interactive/js/movie_page.js" %}"></script>
+<script src="{% static "interactive/js/multiple_movie_page.js" %}"></script>
 
 {% endblock content %}
