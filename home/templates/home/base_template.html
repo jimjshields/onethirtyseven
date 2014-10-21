@@ -14,13 +14,13 @@
     <title>{% block title %}1.37:1{% endblock title %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static "interactive/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "onethirtyseven/css/bootstrap.min.css" %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{% static "interactive/css/cover.css" %}" rel="stylesheet">
+    <link href="{% static "onethirtyseven/css/cover.css" %}" rel="stylesheet">
 
     <!--d3 source code-->
-    <script src="{% static "interactive/d3.min.js" %}"></script>
+    <script src="{% static "onethirtyseven/d3.min.js" %}"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -66,14 +66,17 @@
               </ul>
             </div>
           </div>
-
           {% block header %}{% endblock header %}
 
           {% block content %}{% endblock content %}
-
           <div class="mastfoot">
             <div class="inner">
-              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+              <p id="wiki"><a href="http://en.wikipedia.org/wiki/Academy_ratio">What does 1.37:1 mean?</a></p>
+                <ul>
+                  <li><a href="https://github.com/jimjshields/onethirtyseven">GitHub</a></li>
+                  <li><a href="https://twitter.com/shieldsofdreams">Twitter</a></li>
+                  <li><a href="mailto:jim.j.shields@gmail.com">E-mail</a></li>
+                </ul>
             </div>
           </div>
 
@@ -86,8 +89,8 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="{% static "interactive/js/bootstrap.min.js" %}"></script>
-    <script src="{% static "interactive/js/docs.min.js" %}"></script>
+    <script src="{% static "onethirtyseven/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "onethirtyseven/js/docs.min.js" %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>

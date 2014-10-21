@@ -161,3 +161,22 @@ body {
     width: 700px;
   }
 }
+
+.mastfoot > .inner > ul > li {
+  display: inline-block;
+  padding-right: 0;
+  padding-left: 0;
+  /*padding: 0px 20px 0px 0px;*/
+  font-size: 14px;
+  color: #fff; /* IE8 proofing */
+  color: rgba(255,255,255,.75);
+  float: right;
+}
+
+.mastfoot > .inner > ul > li > a {
+  margin-left: 20px;
+}
+
+#wiki {
+  float: left;
+}
