@@ -106,10 +106,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-AWS_STORAGE_BUCKET_NAME = os.environ['elasticbeanstalk-us-east-1-504342476242']
+# AWS_STORAGE_BUCKET_NAME = os.environ['static137to1']
 
 if not DEBUG:
-    AWS_STORAGE_BUCKET_NAME = os.environ['elasticbeanstalk-us-east-1-504342476242']
+    AWS_STORAGE_BUCKET_NAME = os.environ['static137to1']
     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     STATIC_URL = S3_URL
