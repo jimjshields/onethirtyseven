@@ -91,6 +91,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 # Parse database configuration from $DATABASE_URL - unnecessary for now (no database)
 # import dj_database_url
 # DATABASES['default'] =  dj_database_url.config()
