@@ -35,6 +35,10 @@
   stroke-width: 1.5px;
 }*/
 
+.label {
+  font: 10px sans-serif;
+}
+
 .axis {
   font: 10px sans-serif;
 }
@@ -77,4 +81,8 @@
 
 svg {
   background-color: white;
+}
+
+.content_link {
+  color: steelblue;
 }

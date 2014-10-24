@@ -1,12 +1,13 @@
 var parseDate = d3.time.format("%m/%d/%y").parse;
 var dollar = d3.format("$,");
-var percent = d3.format("%.");
+var percent = d3.format(".2%");
+var comma = d3.format(",2")
 var formatDate = d3.time.format("%m/%d/%y")
 var bisectYear = d3.bisector(function(d) { return d.year; }).right; // **
 
 function drawMovieTicketsGraph() {
 
-    var margin = {top: 10, right: 20, bottom: 30, left: 30},
+    var margin = {top: 40, right: 20, bottom: 30, left: 30},
       width = 700 - margin.left - margin.right, // adjusted width (from 860) to fit new page formatting
       height = 300 - margin.top - margin.bottom, // adjusted height (from 400) to fit new page formatting
       barPadding = 0.5;
@@ -92,7 +93,15 @@ function drawMovieTicketsGraph() {
         .style("opacity", 1)
         .call(yAxis);
 
-    lineSvg.append("path")
+    svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        // .style("text-decoration", "underline")  
+        .text("Average Ticket Price");
+
+    svg.append("path")
         .datum(dataset)
         .attr("class", "line")
         .attr("id", "price")
@@ -103,6 +112,22 @@ function drawMovieTicketsGraph() {
         .attr("class", "line")
         .attr("id", "price_infl_adj")
         .attr("d", avg_ticket_price_infl_adj_line);
+
+    svg.append("text")
+        .attr("class", "label")
+        .attr("text-anchor", "end")
+        .attr("x", width)
+        .attr("y", height - 6)
+        .text("Year");
+
+    svg.append("text")
+        .attr("class", "label")
+        .attr("text-anchor", "end")
+        .attr("x", -158)
+        .attr("y", 6)
+        .attr("dy", ".75em")
+        .attr("transform", "rotate(-90)")
+        .text("Ticket Price ($)");
 
 
     // append the circle at the intersection               // **********
@@ -196,7 +221,7 @@ function drawMovieTicketsGraph() {
 
 function drawMovieTicketsChangeGraph() {
 
-    var margin = {top: 10, right: 20, bottom: 30, left: 40},
+    var margin = {top: 40, right: 20, bottom: 30, left: 40},
       width = 700 - margin.left - margin.right, // adjusted width (from 860) to fit new page formatting
       height = 300 - margin.top - margin.bottom, // adjusted height (from 400) to fit new page formatting
       barPadding = 0.5;
@@ -282,7 +307,31 @@ function drawMovieTicketsChangeGraph() {
         .style("opacity", 1)
         .call(yAxis);
 
-    lineSvg.append("path")
+    svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        // .style("text-decoration", "underline")  
+        .text("Average Ticket Price - % Change");
+
+    svg.append("text")
+        .attr("class", "label")
+        .attr("text-anchor", "end")
+        .attr("x", width)
+        .attr("y", height - 6)
+        .text("Year");
+
+    svg.append("text")
+        .attr("class", "label")
+        .attr("text-anchor", "end")
+        .attr("x", -145)
+        .attr("y", 6)
+        .attr("dy", ".75em")
+        .attr("transform", "rotate(-90)")
+        .text("% Change in Price");
+
+    svg.append("path")
         .datum(dataset)
         .attr("class", "line")
         .attr("id", "price")
@@ -385,7 +434,7 @@ function drawMovieTicketsChangeGraph() {
 
 function drawMovieTicketsSoldGraph() {
 
-    var margin = {top: 10, right: 20, bottom: 30, left: 40},
+    var margin = {top: 40, right: 20, bottom: 30, left: 40},
       width = 700 - margin.left - margin.right, // adjusted width (from 860) to fit new page formatting
       height = 300 - margin.top - margin.bottom, // adjusted height (from 400) to fit new page formatting
       barPadding = 0.5;
@@ -471,7 +520,31 @@ function drawMovieTicketsSoldGraph() {
         .style("opacity", 1)
         .call(yAxis);
 
-    lineSvg.append("path")
+    svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        // .style("text-decoration", "underline")  
+        .text("Number of Tickets Sold (Millions)");
+
+    svg.append("text")
+        .attr("class", "label")
+        .attr("text-anchor", "end")
+        .attr("x", width)
+        .attr("y", height - 6)
+        .text("Year");
+
+    svg.append("text")
+        .attr("class", "label")
+        .attr("text-anchor", "end")
+        .attr("x", -125)
+        .attr("y", 6)
+        .attr("dy", ".75em")
+        .attr("transform", "rotate(-90)")
+        .text("# of Tickets Sold (mm)");
+
+    svg.append("path")
         .datum(dataset)
         .attr("class", "line")
         .attr("id", "price")
@@ -569,7 +642,7 @@ function drawMovieTicketsSoldGraph() {
                 .attr("class", "")
                 .style("opacity", 1)
                 .select("#value")
-                .html(i0 + "<br>" + y0)
+                .html(i0 + "<br>" + comma(y0))
     }                                 
 }
 
