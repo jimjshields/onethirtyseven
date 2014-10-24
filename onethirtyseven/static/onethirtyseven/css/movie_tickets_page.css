@@ -86,3 +86,11 @@ svg {
 .content_link {
   color: steelblue;
 }
+
+.bar.positive {
+  fill: steelblue;
+}
+
+.bar.negative {
+  fill: red;
+}

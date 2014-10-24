@@ -331,6 +331,26 @@ function drawMovieTicketsChangeGraph() {
         .attr("transform", "rotate(-90)")
         .text("% Change in Price");
 
+    // svg.selectAll(".bar")
+    //     .data(dataset)
+    //     .enter()
+    //     .append("rect")
+    //     .attr("class", function(d) { return d.avg_ticket_price_change < 0 ? "bar negative" : "bar positive"; })
+    //     .attr("x", function(d) { return x(d.year); })
+    //     .attr("y", function(d) { return d.avg_ticket_price_change < 0 ? y(0) : y(d.avg_ticket_price_change); })
+    //     .attr("width", function(d) { return (width / dataset.length) / 2 - barPadding })
+    //     .attr("height", function(d) { return Math.abs( y(d.avg_ticket_price_change) - y(0) ); });
+
+    // svg.selectAll(".bar")
+    //     .data(dataset)
+    //     .enter()
+    //     .append("rect")
+    //     .attr("class", function(d) { return d.avg_ticket_price_infl_adj_change < 0 ? "bar negative" : "bar positive"; })
+    //     .attr("x", function(d) { return x(d.year) + ((width / dataset.length) / 2 - barPadding); })
+    //     .attr("y", function(d) { return d.avg_ticket_price_infl_adj_change < 0 ? y(0) : y(d.avg_ticket_price_infl_adj_change); })
+    //     .attr("width", function(d) { return (width / dataset.length) / 2 - barPadding })
+    //     .attr("height", function(d) { return Math.abs( y(d.avg_ticket_price_infl_adj_change) - y(0) ); });
+
     svg.append("path")
         .datum(dataset)
         .attr("class", "line")
