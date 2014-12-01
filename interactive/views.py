@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader, Context
 from django.shortcuts import render, render_to_response
 from forms import MovieForm, MoviesForm
-from movieFilter import movieFilter2, multipleMovieFilter, movieTicketsJson
+from movieFilter import movieFilter2, multipleMovieFilter, movieTicketsJson, BOMWeeklyJson
 
 # Create your views here.
 
@@ -37,3 +37,7 @@ def base_template(request):
 def movie_tickets_page(request):
 	chart_data = movieTicketsJson()
 	return render(request, 'interactive/movie_tickets_page.html', {'js_data': chart_data})
+
+def weekly_page(request):
+	chart_data = BOMWeeklyJson()
+	return render(request, 'interactive/weekly_page.html', {'js_data': chart_data})

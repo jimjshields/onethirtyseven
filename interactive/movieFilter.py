@@ -141,3 +141,51 @@ def movieTicketsJson():
     json_data += ']'
 
     return json_data
+
+def BOMWeeklyJson():
+
+    filename = '/Users/jimshields/Documents/Blog/onethirtyseven/interactive/static/interactive/BOM_weekly_data1982-2014.csv' # /Users/jimshields/Documents/Blog/onethirtyseven/interactive/static/interactive/dailyBoxOfficeData_full.csv
+
+    ofile  = open(filename, 'rU')
+    reader = csv.reader(ofile)
+    csv_data = []
+
+    for row in reader:
+        if row[0] == "year":
+            pass
+        elif row[8] == '42':
+            csv_data.append('"year": ' + row[0] + ', ' 
+                            + '"week": "' + row[1] + '", ' 
+                            + '"top_12_gross": ' + row[2] + ', ' 
+                            + '"top_12_change": ' + row[3] + ', ' 
+                            + '"total_gross": ' + row[4] + ', ' 
+                            + '"total_change": ' + row[5] + ', ' 
+                            + '"movies_count": ' + row[6] + ', ' 
+                            + '"top_movie": "' + row[7] + '", ' 
+                            + '"week_num": ' + row[8] + ', ' 
+                            + '"table_link": "' + row[9] + '", ' 
+                            + '"inflation_adjustment": ' + row[10] + ', '
+                            + '"infl_adj_top_12": ' + row[11] + ', '
+                            + '"infl_adj_total": ' + row[12]             
+                            )
+        else:
+            pass
+
+    ofile.close()
+
+    # print movieList
+
+    interm_data = []
+
+    for i in csv_data:
+        interm_data.append('{' + i + '}, ')
+
+    json_data = '['
+
+    for i in interm_data:
+        json_data += i
+
+    json_data += ']'
+
+    return json_data
+

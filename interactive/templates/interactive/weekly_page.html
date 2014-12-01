@@ -1,0 +1,60 @@
+{% extends "home/base_template.html" %}
+
+{% block header %}
+{% load staticfiles %}
+
+  <script>
+
+    $(".active").removeClass("active");
+    $("#interactive").addClass("active");
+
+  </script>
+  <script>
+
+    var js_data = {{ js_data|safe }};
+    // var movie_name = "{{ movie }}";
+
+  </script>
+
+  <link href="{% static "onethirtyseven/css/movie_tickets_page.css" %}" rel="stylesheet">
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+{% endblock header %}
+
+{% block content %}
+
+  <div style="overflow-y: scroll; height:400px;">
+  <div id="movie_tickets_graph_title">
+  <h3 class="text-center">Weekly Box Office</a></h3>
+  </div>
+
+  <div id="weekly_graph"></div>
+
+  <div>
+    <div id="tooltip" class="hidden">
+      <p><strong></strong></p>
+      <p><span id="value">100</span></p>
+    </div>
+  </div>
+
+  </div>
+
+<!--   <div class="inner cover" id="daily_heading">
+    <h1 class="cover-heading">Daily Box Office by Movie</h1>
+    <p class="lead">A bar graph of the daily box office gross of a single movie. Type in any movie (since 1999) to give it a try.</p>
+  </div> -->
+
+<!--   <div id="daily_form">
+    <form action="/interactive/movie_page/" method="post" id="movie_form">
+      {% csrf_token %}
+      <div class="form-group">
+        <input class="form-control input-lg" id="movie" type="text" name="movie" value="{{ current_movie }}" placeholder="Enter a movie">
+      </div>
+      <input type="submit" value="Try it out" id="movie_submit" class="btn btn-default">
+    </form> 
+  </div> -->
+  <!-- <div class="container" id="cumulative_graph"></div> -->
+
+<script src="{% static "onethirtyseven/js/weekly_page.js" %}"></script>
+
+{% endblock content %}
