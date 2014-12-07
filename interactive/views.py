@@ -31,8 +31,8 @@ def multiple_movie_page(request):
 		form = MoviesForm()
 	return render(request, 'interactive/multiple_movie_page.html', {'form': form})
 
-def imdb_top_250_track(request):
-	return render_to_response('interactive/imdb_top_250_track.html')
+def top_250_track(request):
+	return render_to_response('interactive/top_250_track.html')
 
 def base_template(request):
 	return render_to_response('interactive/base_template.html')
