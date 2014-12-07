@@ -181,7 +181,7 @@ var svg = d3.select("#graph").append("svg")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // loads data, makes it available to functions below as a set of objects
-d3.csv("12_06_14_test.csv", function(error, data) {
+d3.csv("12_07_14_test.csv", function(error, data) {
 	// coerces the data types correctly
 	data.forEach(function(d) {
 		d.rank = +d.rank;
