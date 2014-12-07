@@ -41,6 +41,6 @@ def movie_tickets_page(request):
 	chart_data = movieTicketsJson()
 	return render(request, 'interactive/movie_tickets_page.html', {'js_data': chart_data})
 
-def weekly_page(request):
-	chart_data = BOMWeeklyJson()
-	return render(request, 'interactive/weekly_page.html', {'js_data': chart_data})
+# def weekly_page(request):
+# 	chart_data = BOMWeeklyJson()
+# 	return render(request, 'interactive/weekly_page.html', {'js_data': chart_data})
