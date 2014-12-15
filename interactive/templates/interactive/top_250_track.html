@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8">
+<<<<<<< HEAD
+=======
+	<style>
+
+		body {
+		  font: 10px sans-serif;
+		}
+
+		.axis path,
+		.axis line,
+		.x.axis path {
+			fill: none;
+			stroke: #000;
+			shape-rendering: crispEdges;
+		}
+
+		.line {
+			fill: none;
+			stroke: grey;
+			stroke-width: .5px;
+			opacity: 0.5;
+		}
+
+		.lineClicked {
+			stroke: red;
+			stroke-width: 2px;
+			stroke-linejoin: bevel;
+			fill: none;
+			opacity: 1;
+		}
+
+		.lineFiltered {
+			stroke-width: 4px;
+			opacity: 1;
+		}
+
+		tr.clicked {
+			background-color: lightgrey;
+			border: 2px solid black;
+		}
+
+		.table {
+			margin-top: 10px;
+			height: 400px;
+			width: 150px;
+			overflow: scroll;
+			float: left;
+			font-family: sans-serif;
+		}
+
+		tr, #filter, #fullChart {
+			text-align: left;
+			cursor: pointer;
+		}
+
+		tr:hover, #filter:hover, #fullChart:hover {
+			background-color: lightgrey;
+			-o-transition:.5s;
+			-ms-transition:.5s;
+			-moz-transition:.5s;
+			-webkit-transition:.5s;
+			/* ...and now for the proper property */
+			transition:.5s;
+		}
+
+		#control {
+			margin-top: 20px;
+			height: 100%;
+			float: left;
+			-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    -mox-box-shadow: 4px 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4) pointer-events: none;
+		}
+
+		#filter, #fullChart {
+			height: 20px;
+			text-align: center;
+		}
+
+		span {
+			vertical-align: middle;
+		}
+
+		#tooltip {
+			opacity: 0;
+			position: absolute;
+			width: 100px;
+		    height: auto;
+		    padding: 5px;
+		    background-color: white;
+		    color: black;
+		    text-align: center;
+		    -webkit-border-radius: 10px;
+		    -moz-border-radius: 10px;
+		    border-radius: 10px;
+		    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    -mox-box-shadow: 4px 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4) pointer-events: none;
+		    font-family: sans-serif;
+		    font-size: 14px;
+		    line-height: 20px;
+		}
+
+		#fullPage {
+			width: 100%;
+			height: 100%;
+			display: flex;
+		}
+		#graph {
+			float: right;
+		}
+
+	</style>
+>>>>>>> 6742cb8bba0f76b99677be9d2e92b3f05781a0e0
+
+	<head>
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<<<<<<< HEAD
+		<link rel="stylesheet" href="top_250_track.css">
+	</head>
+
+	<body>
+		<div id="fullPage">
+
+			<div id="control">
+				<div id="filter">
+					<span>Filter</span>
+				</div>
+				<div id="fullChart">
+					<span>Back to Full Chart</span>
+				</div>
+				<div class="table">
+					<table id="movieSelection"></table>
+				</div>
+				<div class="table">
+					<table id="clickedMovies"></table>
+				</div>
+			</div>
+
+			<div id="tooltip"></div>
+			<div id="graph"></div>
+
+		</div>
+		<script src="top_250_track.js"></script>
+	</body>
+=======
+	</head>
+	<body>
+		<div id="fullPage">
+			<div id="control">
+				<div id="filter"><span>Filter</span></div>
+				<div id="fullChart"><span>Back to Full Chart</span></div>
+				<div class="table">
+					<table id="movieSelection">
+	<!-- 					<thead>
+
+							<tr>
+								<th>Movies</th>
+							</tr>
+						</thead> -->
+					</table>
+				</div>
+				<div class="table">
+					<table id="clickedMovies">
+		<!-- 					<thead>
+
+								<tr>
+									<th>Selected Movies</th>
+								</tr>
+							</thead> -->
+					</table>
+				</div>
+			</div>
+			<div id="tooltip"></div>
+			<div id="graph"></div>
+		</div>
+	</body>
+
+			<script>
+
+// margins for the svg - height/width defined in terms of margin
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+	width = (0.7 * window.innerWidth) - margin.left - margin.right,
+	height = window.innerHeight - margin.top - margin.bottom;
+
+// takes in date from data, returns js-compatible date
+var parseDate = d3.time.format("%d-%b-%y").parse;
+
+// scales the x values - expects dates, outputs width range
+var x = d3.time.scale()
+	.range([0, width]);
+
+// scales the y values - expects continuous data set, outputs height range
+var y = d3.scale.linear()
+	.range([height, 0]);
+
+// stores x axis based on x scale as defined above
+var xAxis = d3.svg.axis()
+	.scale(x)
+	.orient("bottom");
+
+// stores y axis based on y scale as defined above
+var yAxis = d3.svg.axis()
+	.scale(y)
+	.orient("left");
+
+// stores a d3 line that is bound to scaled data - it's called below (after data is loaded)
+var line = d3.svg.line()
+	.defined(function(d) { return d.rank != null; })
+	.x(function(d) { return x(d.date); })
+	.y(function(d) { return y(d.rank); });
+
+// svg is stored and appended to the body of the html
+var svg = d3.select("#graph").append("svg")
+	.attr("width", width + margin.left + margin.right)
+	.attr("height", height + margin.top + margin.bottom)
+	// find out what this does?
+	.append("g")
+	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// loads data, makes it available to functions below as a set of objects
+d3.csv("took_250_combined.csv", function(error, data) {
+	// coerces the data types correctly
+	data.forEach(function(d) {
+		d.rank = +d.rank;
+		// d.year = +d.year;
+		d.num_votes = +d.num_votes;
+		d.imdb_rating = +d.imdb_rating;
+		d.date = parseDate(d.date);
+	});
+
+	// nest the data - make the movies the keys in an array of movie objects
+	var nest = d3.nest()
+		.key(function(d) { return d.imdb_id; })
+		.entries(data);
+
+	dataTable = []
+
+	nest.forEach(function(d) {
+		// var date = d.values[0].date
+		// var formattedDate = date.getMonth() + 1 + "-" + date.getDate() + "-" + date.getFullYear();
+
+		dataTable.push([d.key, d.values[0].standard_title]) //, d.values[0].rank, formattedDate, , d.values[0].year
+	})
+
+	title_data = {}
+	nest.forEach(function(d) {
+		title_data[d.values[0]["standard_title"]] = d.values[0]["imdb_id"]
+	});
+
+	key_data = {}
+	nest.forEach(function(d) {
+		key_data[d.values[0]["imdb_id"]] = d.values[0]
+	});
+
+		// for each movie title, add a row
+	dataTable.forEach(function(d) {
+		d3.select("#movieSelection")
+			.append("tr")
+			.attr("class", d[0])
+		for(i=1; i < d.length; i++) {
+			d3.select("." + d[0])
+				.append("td")
+				.text(d[i])
+				.style("width", "200px")
+				.style("overflow", "hidden")
+		}
+	});
+
+	var drawFullChart = function() {
+		svg.selectAll("*").remove();
+		d3.selectAll("#clickedMovies > tr").remove();
+
+		x.domain(d3.extent(data, function(d) { return d.date; }));
+		y.domain([d3.max(data, function(d) { return d.rank; }), 
+					d3.min(data, function(d) { return d.rank; })
+					]);
+
+		// adding the x axis and all of its attributes
+		svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(xAxis);
+
+		// adding the y axis and all of its attributes
+		svg.append("g")
+			.attr("class", "y axis")
+			.call(yAxis)
+			.append("text")
+			.attr("transform", "rotate(-90)")
+			.attr("y", 6)
+			.attr("dy", ".71em")
+			.style("text-anchor", "end")
+			.text("Top 250 Rank");
+
+		// loop through the nested data and make a line for every movie
+		nest.forEach(function(d) {
+			svg.append("path")
+			.datum(d.values)
+			.attr("class", "line " + d.key)
+			.attr("d", line);
+		});
+
+		var lines = d3.selectAll(".line")
+
+		lines.on("mousemove", function(d) {
+				var point = d3.mouse(this), p = {x: point[0], y: point[1] };
+				var movie = d3.select(this).attr("class").split(" ")[1]
+				d3.select("#tooltip")
+					.text(key_data[movie]["standard_title"])
+					  .style("left", p.x + 375 + "px")     
+					  .style("top", p.y - 25 + "px")
+					  .style("opacity", "1");
+					// .attr("transform", "translate(" + p.x + "," + p.y + ")")
+					// .style()
+				d3.select(this)
+					.style("stroke-width", "2px")
+					.style("stroke", "red")
+					.style("opacity", "1");
+			})
+
+			.on("mouseout", function(d) {
+				d3.select("#tooltip")
+					.style("opacity", "0")
+				d3.select(this)
+					.style("stroke-width", ".5px")
+					.style("stroke", "grey")
+					.style("opacity", "0.5")
+			});
+	};
+
+	drawFullChart();
+
+	var fullChartButton = d3.select("#fullChart")
+	fullChartButton.on("click", drawFullChart);
+
+	// store all of the rows
+	var tr = d3.selectAll("tr");
+
+	var clickedMovies = [];
+
+	// if you hover over a row, it highlights the line for the movie in the row
+	tr
+		.on("mousemove", function(d) {
+			var movie = d3.select(this).attr("class");
+			svg.select("." + movie)
+				.style("stroke", "red")
+				.style("stroke-width", "2px")
+				.style("opacity", "1");
+		})
+
+	   	.on("mouseout", function(d) {
+		   	var movie = d3.select(this).attr("class")
+		   	svg.select("." + movie)
+		   		.style("stroke", "grey")
+		   		.style("stroke-width", ".5px")
+		   		.style("opacity", "0.5");
+	   	})
+	
+    // if you click on a row, it adds it to the selected movies table
+	   	.on("click", function(d) {
+		   	var movie = d3.select(this).attr("class");
+		   	var movieText = d3.select(this).text()
+		   	var movieEl = svg.select("." + movie)
+		   	var clicked = d3.select(this).attr("class").split(" ")[1];
+
+		// if it's already been clicked, get rid of it
+		   	if(clicked == "clicked") {
+		   		d3.select(this).classed("clicked", false)
+		   		movieEl.classed("lineClicked", false)
+		   		clickedMovies.splice(clickedMovies.indexOf(movieText), 1)
+		// otherwise keep it in there
+		   	} else {
+		   		d3.select(this).classed("clicked", true)
+		   		movieEl.classed("lineClicked", true)
+		   		clickedMovies.push(movieText)
+		   	};
+
+		// every time one is clicked, rebuild the selected movies
+		   	d3.selectAll("#clickedMovies > tr").remove()
+		   	clickedMovies.forEach(function(d) {
+		   		d3.select("#clickedMovies")
+				.append("tr")
+				.text(d)
+				.attr("class", title_data[d]);
+		   	});	   	
+
+		// highlight lines even more clearly if selected movie is hovered over
+		   	var clickedTr = d3.selectAll("#clickedMovies > tr");
+		   	
+		   	clickedTr.on("mousemove", function(d) {
+				var movie = d3.select(this).attr("class");
+				svg.select("." + movie)
+					.style("stroke", "red")
+			})
+		   	.on("mouseout", function(d) {
+			   	var movie = d3.select(this).attr("class")
+			   	svg.select("." + movie)
+			   		.style("stroke", "grey")
+			});	   	
+
+			var filterButton = d3.select("#filter")
+
+			filterButton.on("click", function(d) {
+
+				var filteredMovies = [];
+				clickedMovies.forEach(function(d) {
+					filteredMovies.push(title_data[d])
+				})
+				filteredData = nest.filter(function(d) {
+					return filteredMovies.indexOf(d.key) > -1;
+				});
+
+				console.log(filteredData);
+
+				svg.selectAll("*").remove();
+
+				var dates = [];
+				var ranks = [];
+
+				filteredData.forEach(function(d) {
+					d.values.forEach(function(i) {
+						dates.push(i["date"]);
+						ranks.push(i["rank"]);
+					});
+				});
+
+				x.domain(d3.extent(dates));
+				y.domain([d3.max(ranks), d3.min(ranks)]);
+
+				// adding the x axis and all of its attributes
+				svg.append("g")
+					.attr("class", "x axis")
+					.attr("transform", "translate(0," + height + ")")
+					.call(xAxis);
+
+				// adding the y axis and all of its attributes
+				svg.append("g")
+					.attr("class", "y axis")
+					.call(yAxis)
+					.append("text")
+					.attr("transform", "rotate(-90)")
+					.attr("y", 6)
+					.attr("dy", ".71em")
+					.style("text-anchor", "end")
+					.text("Top 250 Rank");
+
+				// better interpolation for lines when filtered - too slow for the whole graph
+				var lineFiltered = d3.svg.line()
+					.defined(function(d) { return d.rank != null; })
+					.interpolate("basis")
+					.x(function(d) { return x(d.date); })
+					.y(function(d) { return y(d.rank); });
+
+				filteredData.forEach(function(d) {
+					svg.append("path")
+					.datum(d.values)
+					.attr("class", "line " + d.key + " lineFiltered")
+					.attr("d", lineFiltered);
+				});
+
+				var lines = d3.selectAll(".line")
+
+				lines.on("mousemove", function(d) {
+					var point = d3.mouse(this), p = {x: point[0], y: point[1] };
+					var movie = d3.select(this).attr("class").split(" ")[1]
+					d3.select("#tooltip")
+						.text(key_data[movie]["standard_title"])
+						.style("left", p.x + 375 + "px")
+						.style("top", p.y - 25 + "px")
+						.style("opacity", "1");
+						// .attr("transform", "translate(" + p.x + "," + p.y + ")")
+						// .style()
+					d3.select(this)
+						.style("stroke", "red");
+				})
+
+				.on("mouseout", function(d) {
+					d3.select("#tooltip")
+						.style("opacity", "0")
+					d3.select(this)
+						.style("stroke", "grey");
+				});
+			})
+	   	});
+	
+
+});
+
+		</script>
+
+>>>>>>> 6742cb8bba0f76b99677be9d2e92b3f05781a0e0
+</html>
